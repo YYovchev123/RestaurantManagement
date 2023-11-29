@@ -5,6 +5,7 @@ public enum RestaurantCategory {
     PIZZA,
     BURGERS,
     SUSHI,
-    DONER
+    DONER,
+    LUXURY
     // ADD MORE RESTAURANT CATEGORIES
 }

@@ -1,8 +1,10 @@
 package com.alibou.security.user.service;
 
 import com.alibou.security.exception.RecordNotFoundException;
+import com.alibou.security.restaurant.model.Restaurant;
 import com.alibou.security.user.model.User;
 import com.alibou.security.user.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +51,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteById(long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void setUser(String email, Restaurant restaurant) {
+        User user = findByEmail(email);
+        restaurant.setOwner(user);
     }
 }

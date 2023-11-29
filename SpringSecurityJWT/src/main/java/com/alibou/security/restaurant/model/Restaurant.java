@@ -29,7 +29,6 @@ public class Restaurant {
     @NotNull
     @Enumerated(EnumType.STRING)
     private RestaurantCategory restaurantCategory;
-    @NotNull
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "foods_id")
     private List<Food> menu;

@@ -29,8 +29,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/demo-controller").hasAnyAuthority(Role.OWNER.name())
-                                .requestMatchers(HttpMethod.POST, "/api/v1/food").hasAnyAuthority(Role.OWNER.name())
+                                .requestMatchers(HttpMethod.GET, "/api/v1/demo-controller", "/api/v1/restaurant/{id}").hasAnyAuthority(Role.OWNER.name())
+                                .requestMatchers(HttpMethod.POST, "/api/v1/food", "/api/v1/restaurant").hasAnyAuthority(Role.OWNER.name())
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

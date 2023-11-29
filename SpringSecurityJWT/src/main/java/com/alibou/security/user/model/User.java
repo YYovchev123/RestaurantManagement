@@ -32,7 +32,7 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToMany(mappedBy = "_user")
+    @OneToMany(mappedBy = "owner")
     private List<Restaurant> restaurants;
 
     @Override

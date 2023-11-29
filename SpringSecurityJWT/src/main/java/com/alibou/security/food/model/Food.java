@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name = "restaurants")
+@Table(name = "foods")
 public class Food {
 
     @Id

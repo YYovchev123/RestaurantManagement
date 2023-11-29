@@ -15,7 +15,6 @@ import java.util.List;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
-    private final FoodService foodService;
 
     @Override
     public Restaurant save(Restaurant restaurant) {
