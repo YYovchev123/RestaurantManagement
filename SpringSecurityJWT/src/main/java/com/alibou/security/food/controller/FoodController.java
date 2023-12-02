@@ -10,10 +10,10 @@ import com.alibou.security.restaurant.service.RestaurantService;
 import com.alibou.security.user.model.User;
 import com.alibou.security.user.service.UserService;
 import com.alibou.security.validator.UserValidator;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +30,6 @@ public class FoodController {
     private final UserService userService;
     private final UserValidator userValidator;
 
-    //Todo: test this method
     @PostMapping(value = "/{rid}")
     public ResponseEntity<FoodResponse> saveToMenu(@PathVariable long rid, @RequestBody FoodSaveRequest foodSaveRequest,
                                                    @RequestHeader("Authorization") String authorizationHeader) {
@@ -42,7 +41,6 @@ public class FoodController {
         return ResponseEntity.ok(foodConverter.convert(food));
     }
 
-    //Todo: Make it so only ADMINS and the owner of the restaurant can access this method
     @GetMapping(value = "/menu/{rid}")
     public ResponseEntity<List<FoodResponse>> getMenuForRestaurant(@PathVariable long rid,
                                                                    @RequestHeader("Authorization") String authorizationHeader) {
@@ -53,24 +51,30 @@ public class FoodController {
         return ResponseEntity.ok(menu.stream().map(foodConverter::convert).collect(Collectors.toList()));
     }
 
-    //Todo: secure endpoint
     @GetMapping
     public ResponseEntity<List<FoodResponse>> findAll() {
         List<Food> foods = foodService.findAll();
         return ResponseEntity.ok(foods.stream().map(foodConverter::convert).collect(Collectors.toList()));
     }
 
-    //Todo: secure endpoint
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<FoodResponse> findById(@PathVariable long id) {
+    @GetMapping(value = "/{rid}/{id}")
+    public ResponseEntity<FoodResponse> findById(@PathVariable long id, @PathVariable long rid, @RequestHeader("Authorization") String authorizationHeader) {
+        User user = userService.getEmailFromToken(authorizationHeader);
         Food food = foodService.findById(id);
+        Restaurant restaurant = restaurantService.findById(rid);
+        userValidator.isFoodInOwnerMenu(food, user, restaurant);
         FoodResponse foodResponse = foodConverter.convert(food);
         return ResponseEntity.ok(foodResponse);
     }
 
-    //Todo: secure endpoint
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<HttpStatus> deleteById(@PathVariable long id) {
+    //Todo: Fix this endpoint
+    @DeleteMapping(value = "/{rid}/{id}")
+    @Transactional
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable long id, @PathVariable long rid, @RequestHeader("Authorization") String authorizationHeader) {
+        User user = userService.getEmailFromToken(authorizationHeader);
+        Food food = foodService.findById(id);
+        Restaurant restaurant = restaurantService.findById(rid);
+        userValidator.isFoodInOwnerMenu(food, user, restaurant);
         foodService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
