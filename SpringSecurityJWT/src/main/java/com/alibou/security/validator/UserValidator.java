@@ -14,8 +14,7 @@ public class UserValidator {
 
     private  final UserService userService;
 
-    public void isUserOwner(Restaurant restaurant, String email) {
-        User user = userService.findByEmail(email);
+    public void isUserOwner(Restaurant restaurant, User user) {
         if(!user.getRestaurants().contains(restaurant) && !user.getRole().equals(Role.ADMIN)){
             throw new RecordBadRequestException("Not the owner!");
         }
