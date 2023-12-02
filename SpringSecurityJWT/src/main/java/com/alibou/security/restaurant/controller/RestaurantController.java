@@ -8,6 +8,7 @@ import com.alibou.security.restaurant.model.Restaurant;
 import com.alibou.security.restaurant.service.RestaurantService;
 import com.alibou.security.user.model.User;
 import com.alibou.security.user.service.UserService;
+import com.alibou.security.validator.UserValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,24 +27,13 @@ public class RestaurantController {
     private final RestaurantConverter restaurantConverter;
     private final JwtService jwtService;
     private final UserService userService;
+    private final UserValidator userValidator;
 
-//    @PostMapping
-//    public ResponseEntity<RestaurantResponse> save(@RequestBody RestaurantSaveRequest restaurantSaveRequest, @RequestHeader("Authorization") String authorizationHeader) {
-//        Restaurant restaurant = restaurantConverter.convert(restaurantSaveRequest);
-//        Restaurant savedRestaurant = restaurantService.save(restaurant);
-//        RestaurantResponse restaurantResponse = restaurantConverter.convert(savedRestaurant);
-//        String token = authorizationHeader.replace("Bearer ", "");
-//        String email = jwtService.extractUsername(token);
-//        userService.setUser(email, restaurant);
-//        return ResponseEntity.ok(restaurantResponse);
-//    }
-
-    // Todo: Set the found Owner by the email to the restaurant.owner()
     @PostMapping
+    @Transactional
     public ResponseEntity<RestaurantResponse> save(@RequestBody RestaurantSaveRequest restaurantSaveRequest, @RequestHeader("Authorization") String authorizationHeader) {
         try {
-        String token = authorizationHeader.replace("Bearer ", "");
-        String email = jwtService.extractUsername(token);
+        String email = getEmailFromToken(authorizationHeader);
         Restaurant restaurant = restaurantConverter.convert(restaurantSaveRequest);
         Restaurant savedRestaurant = restaurantService.save(restaurant);
         savedRestaurant.setOwner(userService.findByEmail(email));
@@ -54,6 +44,7 @@ public class RestaurantController {
         }
     }
 
+    // Todo: make this endpoint only accessible for admins
     @GetMapping
     public ResponseEntity<List<RestaurantResponse>> findAll() {
         List<Restaurant> restaurants = restaurantService.findAll();
@@ -62,18 +53,17 @@ public class RestaurantController {
 
     // TODO: make it so only the owner of the restaurant can get his restaurants. Non owners cannot access restaurants. Admins can access all restaurants
     @GetMapping(value = "/{id}")
-    public ResponseEntity<RestaurantResponse> getById(@PathVariable long id) {
+    public ResponseEntity<RestaurantResponse> getById(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader) {
+        String email = getEmailFromToken(authorizationHeader);
         Restaurant restaurant = restaurantService.findById(id);
+        userValidator.isUserOwner(restaurant, email);
         RestaurantResponse restaurantResponse = restaurantConverter.convert(restaurant);
         return ResponseEntity.ok(restaurantResponse);
     }
 
-    @GetMapping("/endpoint")
-    public String getTokenFromHeader(@RequestHeader("Authorization") String authorizationHeader) {
-        // Extract token from Authorization header
-        String token = authorizationHeader.replace("Bearer ", ""); // Assuming a Bearer token
+    private String getEmailFromToken(String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
         String email = jwtService.extractUsername(token);
-        // Your logic here with the retrieved token
-        return "Token: " + token + " " + email;
+        return email;
     }
 }
