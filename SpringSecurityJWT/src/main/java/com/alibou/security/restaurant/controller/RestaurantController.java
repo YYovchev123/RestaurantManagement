@@ -25,7 +25,6 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
     private final RestaurantConverter restaurantConverter;
-    private final JwtService jwtService;
     private final UserService userService;
     private final UserValidator userValidator;
 
@@ -33,10 +32,10 @@ public class RestaurantController {
     @Transactional
     public ResponseEntity<RestaurantResponse> save(@RequestBody RestaurantSaveRequest restaurantSaveRequest, @RequestHeader("Authorization") String authorizationHeader) {
         try {
-        String email = getEmailFromToken(authorizationHeader);
+        User user = userService.getEmailFromToken(authorizationHeader);
         Restaurant restaurant = restaurantConverter.convert(restaurantSaveRequest);
         Restaurant savedRestaurant = restaurantService.save(restaurant);
-        savedRestaurant.setOwner(userService.findByEmail(email));
+        savedRestaurant.setOwner(user);
         RestaurantResponse restaurantResponse = restaurantConverter.convert(savedRestaurant);
         return ResponseEntity.ok(restaurantResponse);
         } catch (Exception e) {
@@ -50,18 +49,19 @@ public class RestaurantController {
         return ResponseEntity.ok(restaurants.stream().map(restaurantConverter::convert).collect(Collectors.toList()));
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<RestaurantResponse> getById(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader) {
-        String email = getEmailFromToken(authorizationHeader);
-        Restaurant restaurant = restaurantService.findById(id);
-        userValidator.isUserOwner(restaurant, email);
-        RestaurantResponse restaurantResponse = restaurantConverter.convert(restaurant);
-        return ResponseEntity.ok(restaurantResponse);
+    @GetMapping(value = "/user")
+    public ResponseEntity<List<RestaurantResponse>> getAllForUser(@RequestHeader("Authorization") String authorizationHeader) {
+        User user = userService.getEmailFromToken(authorizationHeader);
+        List<Restaurant> restaurants = user.getRestaurants();
+        return ResponseEntity.ok(restaurants.stream().map(restaurantConverter::convert).collect(Collectors.toList()));
     }
 
-    private String getEmailFromToken(String authorizationHeader) {
-        String token = authorizationHeader.replace("Bearer ", "");
-        String email = jwtService.extractUsername(token);
-        return email;
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<RestaurantResponse> getById(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader) {
+        User user = userService.getEmailFromToken(authorizationHeader);
+        Restaurant restaurant = restaurantService.findById(id);
+        userValidator.isUserOwner(restaurant, user);
+        RestaurantResponse restaurantResponse = restaurantConverter.convert(restaurant);
+        return ResponseEntity.ok(restaurantResponse);
     }
 }

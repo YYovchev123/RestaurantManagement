@@ -5,6 +5,7 @@ import com.alibou.security.food.model.Food;
 import com.alibou.security.food.service.FoodService;
 import com.alibou.security.restaurant.model.Restaurant;
 import com.alibou.security.restaurant.repository.RestaurantRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final FoodService foodService;
 
     @Override
     public Restaurant save(Restaurant restaurant) {
@@ -42,10 +44,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantRepository.deleteById(id);
     }
 
-    //Todo: make this function
     @Override
+    @Transactional
     public Food addFoodToMenu(long restaurantId, long foodId) {
-        return null;
+        Restaurant restaurant = findById(restaurantId);
+        Food food = foodService.findById(foodId);
+        restaurant.getMenu().add(food);
+        return food;
     }
 
     //Todo: make this function

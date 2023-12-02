@@ -1,5 +1,6 @@
 package com.alibou.security.user.service;
 
+import com.alibou.security.config.JwtService;
 import com.alibou.security.exception.RecordNotFoundException;
 import com.alibou.security.restaurant.model.Restaurant;
 import com.alibou.security.user.model.User;
@@ -15,6 +16,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
     @Override
     public User save(User user) {
@@ -51,5 +53,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteById(long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User getEmailFromToken(String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        String email = jwtService.extractUsername(token);
+        User user = findByEmail(email);
+        return user;
     }
 }
