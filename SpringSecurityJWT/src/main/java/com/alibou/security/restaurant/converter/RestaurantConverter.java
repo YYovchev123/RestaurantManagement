@@ -1,12 +1,10 @@
 package com.alibou.security.restaurant.converter;
 
 import com.alibou.security.food.converter.FoodConverter;
-import com.alibou.security.food.service.FoodService;
 import com.alibou.security.restaurant.dto.RestaurantResponse;
 import com.alibou.security.restaurant.dto.RestaurantSaveRequest;
 import com.alibou.security.restaurant.model.Restaurant;
-import com.alibou.security.user.model.User;
-import com.alibou.security.user.service.UserService;
+import com.alibou.security.user.converter.UserConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +40,6 @@ public class RestaurantConverter {
                         .stream()
                         .map(foodConverter::convert)
                         .collect(Collectors.toList()))
-                .owner(restaurant.getOwner())
                 .build();
     }
 }

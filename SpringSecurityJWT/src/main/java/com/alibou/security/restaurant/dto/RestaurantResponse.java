@@ -1,9 +1,7 @@
 package com.alibou.security.restaurant.dto;
 
 import com.alibou.security.food.dto.FoodResponse;
-import com.alibou.security.food.model.Food;
 import com.alibou.security.restaurant.model.RestaurantCategory;
-import com.alibou.security.user.model.User;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,5 +15,4 @@ public class RestaurantResponse {
     private String phone;
     private RestaurantCategory restaurantCategory;
     private List<FoodResponse> menu;
-    private User owner;
 }

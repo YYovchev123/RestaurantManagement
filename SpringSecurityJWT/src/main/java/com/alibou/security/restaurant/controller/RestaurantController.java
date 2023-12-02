@@ -10,6 +10,7 @@ import com.alibou.security.user.model.User;
 import com.alibou.security.user.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +25,33 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final RestaurantConverter restaurantConverter;
     private final JwtService jwtService;
+    private final UserService userService;
 
+//    @PostMapping
+//    public ResponseEntity<RestaurantResponse> save(@RequestBody RestaurantSaveRequest restaurantSaveRequest, @RequestHeader("Authorization") String authorizationHeader) {
+//        Restaurant restaurant = restaurantConverter.convert(restaurantSaveRequest);
+//        Restaurant savedRestaurant = restaurantService.save(restaurant);
+//        RestaurantResponse restaurantResponse = restaurantConverter.convert(savedRestaurant);
+//        String token = authorizationHeader.replace("Bearer ", "");
+//        String email = jwtService.extractUsername(token);
+//        userService.setUser(email, restaurant);
+//        return ResponseEntity.ok(restaurantResponse);
+//    }
+
+    // Todo: Set the found Owner by the email to the restaurant.owner()
     @PostMapping
-    public ResponseEntity<RestaurantResponse> save(@RequestBody RestaurantSaveRequest restaurantSaveRequest) {
+    public ResponseEntity<RestaurantResponse> save(@RequestBody RestaurantSaveRequest restaurantSaveRequest, @RequestHeader("Authorization") String authorizationHeader) {
+        try {
+        String token = authorizationHeader.replace("Bearer ", "");
+        String email = jwtService.extractUsername(token);
         Restaurant restaurant = restaurantConverter.convert(restaurantSaveRequest);
         Restaurant savedRestaurant = restaurantService.save(restaurant);
+        savedRestaurant.setOwner(userService.findByEmail(email));
         RestaurantResponse restaurantResponse = restaurantConverter.convert(savedRestaurant);
         return ResponseEntity.ok(restaurantResponse);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping

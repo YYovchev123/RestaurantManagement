@@ -52,11 +52,4 @@ public class UserServiceImpl implements UserService{
     public void deleteById(long id) {
         userRepository.deleteById(id);
     }
-
-    @Override
-    @Transactional
-    public void setUser(String email, Restaurant restaurant) {
-        User user = findByEmail(email);
-        restaurant.setOwner(user);
-    }
 }
