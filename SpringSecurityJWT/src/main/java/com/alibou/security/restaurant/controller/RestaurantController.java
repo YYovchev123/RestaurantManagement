@@ -44,14 +44,12 @@ public class RestaurantController {
         }
     }
 
-    // Todo: make this endpoint only accessible for admins
     @GetMapping
     public ResponseEntity<List<RestaurantResponse>> findAll() {
         List<Restaurant> restaurants = restaurantService.findAll();
         return ResponseEntity.ok(restaurants.stream().map(restaurantConverter::convert).collect(Collectors.toList()));
     }
 
-    // TODO: make it so only the owner of the restaurant can get his restaurants. Non owners cannot access restaurants. Admins can access all restaurants
     @GetMapping(value = "/{id}")
     public ResponseEntity<RestaurantResponse> getById(@PathVariable long id, @RequestHeader("Authorization") String authorizationHeader) {
         String email = getEmailFromToken(authorizationHeader);
