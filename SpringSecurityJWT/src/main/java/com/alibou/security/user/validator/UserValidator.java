@@ -1,4 +1,4 @@
-package com.alibou.security.validator;
+package com.alibou.security.user.validator;
 
 import com.alibou.security.exception.RecordBadRequestException;
 import com.alibou.security.food.model.Food;

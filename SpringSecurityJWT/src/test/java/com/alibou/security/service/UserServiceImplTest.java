@@ -1,6 +1,7 @@
 package com.alibou.security.service;
 
 import com.alibou.security.config.JwtService;
+import com.alibou.security.exception.RecordNotFoundException;
 import com.alibou.security.user.model.Role;
 import com.alibou.security.user.model.User;
 import com.alibou.security.user.repository.UserRepository;
@@ -15,15 +16,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
 
-    @Mock
-    private UserRepository userRepository;
     @InjectMocks
     private UserServiceImpl userService;
+    @Mock
+    private UserRepository userRepository;
     @Mock
     private JwtService jwtService;
 
@@ -33,7 +35,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testSave() {
+    public void verifySave() {
         User user = User.builder()
                 .firstname("FistTest")
                 .lastname("LastTest")
@@ -47,13 +49,13 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testFindAll() {
+    public void verifyFindAll() {
         userService.findAll();
         verify(userRepository, times(1)).findAll();
     }
 
     @Test
-    public void testFindById() {
+    public void verifyFindById() {
         long id = 1L;
         User user = User.builder()
                 .id(id)
@@ -65,7 +67,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testFindByEmail() {
+    public void verifyFindByEmail() {
         String email = "test@email.com";
         User user = User.builder()
                 .email(email)
@@ -77,7 +79,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testDeleteById() {
+    public void verifyDeleteById() {
         long id = 1L;
         User user = User.builder()
                 .id(id)
@@ -87,17 +89,34 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testGetEmailFromToken() {
+    public void verifyGetEmailFromToken() {
         String email = "test@email.com";
-        String authorizationHeader = "'Bearer tokenTest134";
         String token = "tokenTest134";
         User user = User.builder()
                 .email(email)
                 .build();
-//        when(authorizationHeader.replace("Bearer ", "")).thenReturn(token);
         when(jwtService.extractUsername(token)).thenReturn(email);
-        when(userService.findByEmail(email)).thenReturn(user);
-        userService.getEmailFromToken(authorizationHeader);
-        verify(userService, times(1)).findByEmail(email);
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        userService.getEmailFromToken(token);
+        verify(userRepository, times(1)).findByEmail(email);
+        assertEquals(user.getEmail(), email);
+    }
+
+    @Test
+    public void verifyFindByIdThrowsException() {
+        String exceptionMessage = "User with id: 1 not found!";
+        RecordNotFoundException exception = assertThrows(RecordNotFoundException.class, () -> {
+            userService.findById(1L);
+        });
+        assertEquals(exceptionMessage, exception.getMessage());
+    }
+
+    @Test
+    public void verifyFindByEmailThrowsException() {
+        String exceptionMessage = "User with email: test@email.com not found!";
+        RecordNotFoundException exception = assertThrows(RecordNotFoundException.class, () -> {
+            userService.findByEmail("test@email.com");
+        });
+        assertEquals(exceptionMessage, exception.getMessage());
     }
 }

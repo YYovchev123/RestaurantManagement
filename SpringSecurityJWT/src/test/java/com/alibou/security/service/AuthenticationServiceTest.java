@@ -12,6 +12,7 @@ import com.alibou.security.user.service.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AuthenticationServiceTest {
 
+    @InjectMocks
     private AuthenticationService authenticationService;
     @Mock
     private UserService userService;
@@ -41,7 +43,7 @@ public class AuthenticationServiceTest {
     }
 
     @Test
-    public void testRegister() {
+    public void verifyRegister() {
         // Given
         RegisterRequest request = new RegisterRequest("FirstTest", "LastTest", "text@email.com", "password", Role.OWNER);
         User expectedUser = User.builder()
@@ -71,7 +73,7 @@ public class AuthenticationServiceTest {
     }
 
     @Test
-    public void testAuthenticate() {
+    public void verifyAuthenticate() {
         AuthenticationRequest authenticationRequest = AuthenticationRequest.builder()
                 .email("text@email.com")
                 .password("password")
