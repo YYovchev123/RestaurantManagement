@@ -1,6 +1,5 @@
 package com.alibou.security.restaurant.controller;
 
-import com.alibou.security.config.JwtService;
 import com.alibou.security.restaurant.converter.RestaurantConverter;
 import com.alibou.security.restaurant.dto.RestaurantResponse;
 import com.alibou.security.restaurant.dto.RestaurantSaveRequest;
@@ -8,7 +7,7 @@ import com.alibou.security.restaurant.model.Restaurant;
 import com.alibou.security.restaurant.service.RestaurantService;
 import com.alibou.security.user.model.User;
 import com.alibou.security.user.service.UserService;
-import com.alibou.security.validator.UserValidator;
+import com.alibou.security.user.validator.UserValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
