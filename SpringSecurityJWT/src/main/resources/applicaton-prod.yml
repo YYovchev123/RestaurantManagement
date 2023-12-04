@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: mysql://root:e5c14C35g6eg3G4C4dd35E4ee156A6f1@roundhouse.proxy.rlwy.net:45351/railway
+    username: root
+    password: e5c14C35g6eg3G4C4dd35E4ee156A6f1
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
