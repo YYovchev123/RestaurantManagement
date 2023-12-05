@@ -68,7 +68,6 @@ public class FoodController {
         return ResponseEntity.ok(foodResponse);
     }
 
-    //Todo: Fix this endpoint
     @DeleteMapping(value = "/{rid}/{id}")
     @Transactional
     public ResponseEntity<HttpStatus> deleteFromMenuById(@PathVariable long id, @PathVariable long rid,
