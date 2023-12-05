@@ -12,6 +12,7 @@ import com.alibou.security.user.service.UserService;
 import com.alibou.security.user.validator.UserValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -70,12 +71,13 @@ public class FoodController {
     //Todo: Fix this endpoint
     @DeleteMapping(value = "/{rid}/{id}")
     @Transactional
-    public ResponseEntity<HttpStatus> deleteById(@PathVariable long id, @PathVariable long rid, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<HttpStatus> deleteFromMenuById(@PathVariable long id, @PathVariable long rid,
+                                                 @RequestHeader("Authorization") String authorizationHeader) {
         User user = userService.getEmailFromToken(authorizationHeader);
         Food food = foodService.findById(id);
         Restaurant restaurant = restaurantService.findById(rid);
         userValidator.isFoodInOwnerMenu(food, user, restaurant);
-        foodService.deleteById(id);
+        restaurantService.removeFoodFromMenu(rid, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

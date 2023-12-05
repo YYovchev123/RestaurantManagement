@@ -53,9 +53,12 @@ public class RestaurantServiceImpl implements RestaurantService {
         return food;
     }
 
-    //Todo: make this function
     @Override
+    @Transactional
     public void removeFoodFromMenu(long restaurantId, long foodId) {
-
+        Restaurant restaurant = findById(restaurantId);
+        Food food = foodService.findById(foodId);
+        restaurant.getMenu().remove(food);
+        foodService.deleteById(foodId);
     }
 }
