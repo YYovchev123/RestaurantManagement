@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f2c9451c-1576-4074-819e-e3d623362e8a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/SpringSecurityJWT/src/test/java/com/alibou/security/service/AuthenticationServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurityJWT/src/test/java/com/alibou/security/service/AuthenticationServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringSecurityJWT/src/test/java/com/alibou/security/service/FoodServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurityJWT/src/test/java/com/alibou/security/service/FoodServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringSecurityJWT/src/test/java/com/alibou/security/service/RestaurantServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurityJWT/src/test/java/com/alibou/security/service/RestaurantServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringSecurityJWT/src/test/java/com/alibou/security/service/UserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurityJWT/src/test/java/com/alibou/security/service/UserServiceImplTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="create_test_service" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/SpringSecurityJWT/src/main/resources/application.yml" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2YfsUEXDxXvuodzUbnNaJFJC77B" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Project.color&quot;: &quot;182e25&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/AmigosCodeTest&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  }
+}</component>
+  <component name="RunManager" selected="JUnit.FoodServiceImplTest.verifySave">
+    <configuration name="AuthenticationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.alibou.security.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.alibou.security.service" />
+      <option name="MAIN_CLASS_NAME" value="com.alibou.security.service.AuthenticationServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FoodServiceImplTest.verifySave" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.alibou.security.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.alibou.security.service" />
+      <option name="MAIN_CLASS_NAME" value="com.alibou.security.service.FoodServiceImplTest" />
+      <option name="METHOD_NAME" value="verifySave" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RestaurantServiceImplTest.verifySave" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.alibou.security.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.alibou.security.service" />
+      <option name="MAIN_CLASS_NAME" value="com.alibou.security.service.RestaurantServiceImplTest" />
+      <option name="METHOD_NAME" value="verifySave" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.alibou.security.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.alibou.security.service" />
+      <option name="MAIN_CLASS_NAME" value="com.alibou.security.service.UserServiceImplTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceImplTest.verifyFindById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.alibou.security.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.alibou.security.service" />
+      <option name="MAIN_CLASS_NAME" value="com.alibou.security.service.UserServiceImplTest" />
+      <option name="METHOD_NAME" value="verifyFindById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="restaurantManagement" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="restaurantManagement" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.FoodServiceImplTest.verifySave" />
+        <item itemvalue="JUnit.RestaurantServiceImplTest.verifySave" />
+        <item itemvalue="JUnit.AuthenticationServiceTest" />
+        <item itemvalue="JUnit.UserServiceImplTest" />
+        <item itemvalue="JUnit.UserServiceImplTest.verifyFindById" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f2c9451c-1576-4074-819e-e3d623362e8a" name="Changes" comment="" />
+      <created>1700927981566</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1700927981566</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.beans.factory.UnsatisfiedDependencyException" package="org.springframework.beans.factory" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="id" />
+        <watch expression="id" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/restaurantManagement$UserServiceImplTest.ic" NAME="UserServiceImplTest Coverage Results" MODIFIED="1701938153313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.alibou.security.service.*</FILTER>
+    </SUITE>
+  </component>
+</project>

@@ -44,7 +44,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void verifyRegister() {
-        // Given
+        // given
         RegisterRequest request = new RegisterRequest("FirstTest", "LastTest", "text@email.com", "password", Role.OWNER);
         User expectedUser = User.builder()
                 .firstname(request.getFirstname())
@@ -58,22 +58,23 @@ public class AuthenticationServiceTest {
         when(userService.save(any(User.class))).thenReturn(expectedUser);
         when(jwtService.generateToken(any(User.class))).thenReturn("jwtToken");
 
-        // When
+        // when
         AuthenticationResponse response = authenticationService.register(request);
 
-        // Then
+        // then
         assertNotNull(response);
         assertEquals(expectedUser.getFirstname(), response.getFirstName());
         assertEquals(expectedUser.getLastname(), response.getLastName());
         assertEquals("jwtToken", response.getToken());
 
-        // Verify that userService.save and jwtService.generateToken were called once
+        // verify that userService.save and jwtService.generateToken were called once
         verify(userService, times(1)).save(any(User.class));
         verify(jwtService, times(1)).generateToken(any(User.class));
     }
 
     @Test
     public void verifyAuthenticate() {
+        //given
         AuthenticationRequest authenticationRequest = AuthenticationRequest.builder()
                 .email("text@email.com")
                 .password("password")
@@ -90,6 +91,7 @@ public class AuthenticationServiceTest {
         when(userService.findByEmail("text@email.com")).thenReturn(user);
         when(jwtService.generateToken(user)).thenReturn("jwtToken");
 
+        //when
         AuthenticationResponse response = authenticationService.authenticate(authenticationRequest);
 
         verify(authenticationManager, times(1)).authenticate(new UsernamePasswordAuthenticationToken(
@@ -97,6 +99,7 @@ public class AuthenticationServiceTest {
                 authenticationRequest.getPassword()
         ));
 
+        //then
         assertNotNull(response);
         assertEquals(user.getFirstname(), response.getFirstName());
         assertEquals(user.getLastname(), response.getLastName());
